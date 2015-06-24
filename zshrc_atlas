@@ -9,7 +9,8 @@ ZSH_THEME="kphoen"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
+alias node=nodejs
+alias l='ls -la'
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
 
@@ -49,8 +50,13 @@ source $ZSH/oh-my-zsh.sh
 
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-export PATH=$PATH:"/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/bin:/sbin"
+export PATH=$PATH:"/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/bin:/sbin:/usr/local/go/bin"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
+
+#AndroidDev PATH 
+
+export PATH=${PATH}:~/Android/Sdk/tools 
+export PATH=${PATH}:~/Android/Sdk/platform-tools 
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
