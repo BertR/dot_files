@@ -3,22 +3,21 @@ ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="kphoen"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias node=nodejs
+alias l='ls -la'
 
+alias emulator="${HOME}/Android/Sdk/tools/emulator"
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
 
 # Uncomment this to disable bi-weekly auto-update checks
 # DISABLE_AUTO_UPDATE="true"
-
-# Uncomment to change how often before auto-updates occur? (in days)
-# export UPDATE_ZSH_DAYS=13
 
 # Uncomment following line if you want to disable colors in ls
 # DISABLE_LS_COLORS="true"
@@ -45,14 +44,45 @@ ZSH_THEME="kphoen"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git mosh pep8 pip python rvm history history-substring-search nanoc django)
+plugins=(git yarn docker gradle kubectl docker-compose pep8 pip python history history-substring-search nanoc ssh-agent zaw zsh-syntax-highlighting django vagrant)
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
+# History
+bindkey '^R' zaw-history
+zstyle ':filter-select:highlight' matched fg=green
+zstyle ':filter-select' max-lines 3
+zstyle ':filter-select' case-insensitive yes # enable case-insensitive 
+zstyle ':filter-select' extended-search yes # see below
 
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/bin:/sbin"
-#export PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
+
+# User configuration
+export WORKON_HOME=~/.local/virtualenvs
+source /home/bert/.local/bin/virtualenvwrapper.sh
+
+export PATH=$PATH:"/usr/local/bin:/usr/local/sbin:/home/bert/.local/bin:/usr/sbin:/usr/bin:/bin:/sbin:/usr/local/go/bin:/home/bert/.cargo/bin:/opt/kotlin-native/bin"
+
+#AndroidDev PATH 
+
+export PATH=${PATH}:~/Android/Sdk/tools 
+export PATH=${PATH}:~/Android/Sdk/platform-tools 
+export PATH=${PATH}:~/Android/Sdk/tools/bin 
+
+# Oracle Stuff
+export ORACLE_HOME=/usr/lib/oracle/12.1/client64
+export PATH=$PATH:$ORACLE_HOME/bin
+
+# Go
+export GOPATH=/home/bert/Development/playAround/go-workspace
+
+NPM_PACKAGES="${HOME}/.npm-packages"
+
+PATH="$NPM_PACKAGES/bin:$PATH"
+
+# Unset manpath so we can inherit from /etc/manpath via the `manpath` command
+# unset MANPATH # delete if you already modified MANPATH elsewhere in your
+# config
+export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -68,7 +98,26 @@ export PATH="/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/bin:/sbin"
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export CUPS_USER='BROBBERE'
+export JAVA_HOME=/home/bert/Java/SDK/jdk1.8.0_144
+export ANDROID_HOME=/home/bert/Android/Sdk
 
+# Powerline
+#
+function powerline_precmd() {
+    PS1="$(powerline-shell --shell zsh $?)"
+}
 
-# PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+function install_powerline_precmd() {
+      for s in "${precmd_functions[@]}"; do
+          if [ "$s" = "powerline_precmd" ]; then
+            return
+          fi
+      done
+      precmd_functions+=(powerline_precmd)
+}
 
+if [ "$TERM" != "linux" ]; then
+    install_powerline_precmd
+fi
