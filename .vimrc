@@ -4,36 +4,41 @@ call plug#begin()
 
 "Utility plugins
 Plug 'tpope/vim-sensible'
-Plug 'majutsushi/tagbar'
-
+Plug 'Raimondi/delimitMate'
+Plug 'zerowidth/vim-copy-as-rtf'
 "AutoCompletion
 Plug 'ervandew/supertab'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --tern-completer' }
+
 
 "Python or Django Specific
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+"Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'Glench/Vim-Jinja2-Syntax'
 
 "Node or Javascript specific
-Plug 'jelera/vim-javascript-syntax'
+Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript'
 Plug 'marijnh/tern_for_vim', { 'do': './npm install' }
-Plug 'ahayman/vim-nodejs-complete'
 
+"Go specific
+Plug 'fatih/vim-go'
+
+"Rust
+Plug 'rust-lang/rust.vim'
+let g:ycm_rust_src_path="/Users/bert/Development/rust-master/src/"
 
 "HTML & CSS
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 
-"Linting
-Plug 'w0rp/ale'
+"Kotlin
+Plug 'udalov/kotlin-vim'
 
 "Look & feel
-
 Plug 'bling/vim-airline'
 let g:airline_powerline_fonts = 1 "Enable the special characters
 let g:airline#extensions#tabline#enabled = 1 "Enable list of buffers
 let g:airline#extensions#tabline#fnamemod = ':t' "Show just the filename
-
+Plug 'junegunn/seoul256.vim'
 
 "LazyLoading
 
@@ -56,6 +61,8 @@ set ruler         " Always show current position
 set virtualedit=onemore " Allow for cursor beyond last character
 set backspace=eol,start,indent " Configure backspace so it acts as it should act
 set showmatch     " Show matching brackets when text indicator is over them
+set nu
+
 
 " Searching
 " --------------------------------------------------------------------
@@ -64,11 +71,7 @@ set incsearch " Highlight search results instantly
 set ignorecase " Ignore case
 set smartcase " Override 'ignorecase' option if the search contains upper  case characters.
 
-" Set up shortcut
-" ------------------------------------------------
-nmap <F8> :TagbarToggle<CR>
-nmap <F9> :NERDTreeToggle<CR>
-set pastetoggle=<F3>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -79,7 +82,6 @@ set noswapfile
 set undofile
 set undodir=~/.vim/tmp/undodir
 
-
 " use special powerline font
 "python powerline_setup()
 "python del powerline_setup
@@ -89,3 +91,14 @@ set undodir=~/.vim/tmp/undodir
 "set t_Co=256
 "set fillchars+=stl:\ ,stlnc:\
 "set term=xterm-256color
+
+set pastetoggle=<F2>
+
+" Unified color scheme (default: dark)
+colo seoul256
+
+" Light color scheme
+colo seoul256-light
+
+" Switch
+set background=dark
